@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kakao/screens/chat_screen.dart';
+import 'package:flutter_kakao/screens/friend_screen.dart';
+import 'package:flutter_kakao/screens/more_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainScreen extends StatefulWidget {
@@ -11,28 +14,32 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
+  void changeScreen(index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
         children: [
-          Center(child: Text("IndexedStack 1"),),
-          Center(child: Text("IndexedStack 2"),),
-          Center(child: Text("IndexedStack 3"),)
+          FriendScreen(),
+          ChatScreen(),
+          MoreScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: true,
+        showSelectedLabels: false,
         showUnselectedLabels: false,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black87,
         currentIndex: _selectedIndex,
         backgroundColor: Colors.grey[200],
         onTap: (index){
-          setState(() {
-            _selectedIndex = index;
-          });
+          changeScreen(index);
         },
         items: [
           BottomNavigationBarItem(
