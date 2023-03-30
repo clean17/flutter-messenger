@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kakao/components/bottom_icon_button.dart';
 import 'package:flutter_kakao/components/round_icon_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -54,7 +55,61 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(width: 20,)
           ],
         ),
+        body: Column(
+          children: [
+            Spacer(),
+            Container(
+              width: 110,
+              height: 110,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(user.backgroundImage),
+                  fit: BoxFit.cover
+                ),
+              ),
+            ),
+            SizedBox(height: 8,),
+            Text(user.name, style: TextStyle(
+              color: Colors.white, fontSize: 20
+            ),),
+            Text(user.intro, style: TextStyle(
+              color: Colors.white, fontSize: 15
+            ),),
+            if( user.name == me.name ) _buildMyIcons() else _buildFriendIcons(),
+          ],
+        ),
         backgroundColor: Colors.transparent,
+      ),
+      
+    );
+  }
+
+  Widget _buildMyIcons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 18.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BottomIconButton(icon: FontAwesomeIcons.comment, text: "나와의채팅"),
+          SizedBox(width: 50,),
+          BottomIconButton(icon: FontAwesomeIcons.pen, text: "프로필 편집"),
+        ],
+      ),
+    );
+        
+  }
+
+  Widget _buildFriendIcons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 18.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BottomIconButton(icon: FontAwesomeIcons.comment, text: "1:1 채팅"),
+          SizedBox(width: 50,),
+          BottomIconButton(icon: FontAwesomeIcons.phone, text: "통화하기")
+        ],
       ),
     );
   }
